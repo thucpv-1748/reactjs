@@ -13,6 +13,8 @@
 
 Route::get('/', 'Index\IndexController@Index');
 
+Route::get('/lifecycle', 'Index\IndexController@Lifecycle');
+
 Route::resource('products', 'ProductController');
 
 

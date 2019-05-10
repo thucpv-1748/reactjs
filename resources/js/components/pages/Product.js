@@ -1,15 +1,21 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
-
+import getRouteHandlerBaseUrl from './BaseUrl';
 
 class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {value: '', products: ''};
     }
+
+    componentWillMount() {
+        this._baseUrl = getRouteHandlerBaseUrl();
+    }
+
+
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/products')
+        axios.get(this._baseUrl + '/products')
             .then(response => {
                 this.setState({ products: response.data });
             })

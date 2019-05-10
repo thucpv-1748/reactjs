@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import history from '../history'
 import axios from "axios";
-
+import getRouteHandlerBaseUrl from './BaseUrl';
 
 class editItem extends Component
 {
@@ -13,18 +13,23 @@ class editItem extends Component
         this.handleChange2 = this.handleChange2.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentWillMount() {
+        this._baseUrl = getRouteHandlerBaseUrl();
+    }
+
     componentDidMount() {
         let id = this.props.match.params.id;
 
-        axios.get('http://127.0.0.1:8000/api/products/' + id)
+        axios.get(this._baseUrl + '/api/products/' + id)
             .then(response => {
-                debugger;
                 this.setState({title : response.data.title, body : response.data.body });
             })
             .catch(function (error) {
                 console.log(error);
             })
     }
+
     handleChange1(e){
         this.setState({
             title: e.target.value
@@ -42,7 +47,7 @@ class editItem extends Component
             body: this.state.body,
         }
         let id = this.props.match.params.id;
-        let uri = 'http://127.0.0.1:8000/api/products/' + id;
+        let uri = this._baseUrl + '/api/products/' + id;
         axios.put(uri, products).then((response) => {
             history.replace('/product')
         });

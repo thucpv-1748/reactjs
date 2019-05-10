@@ -1,8 +1,14 @@
 
 import React, {Component} from 'react';
-import history from '../history'
+import history from '../history';
+import getRouteHandlerBaseUrl from './BaseUrl'
 
 class CreateItem extends Component {
+
+    componentWillMount() {
+        this._baseUrl = getRouteHandlerBaseUrl()
+    }
+
     constructor(props){
         super(props);
         this.state = {title: '', body: ''};
@@ -26,8 +32,8 @@ class CreateItem extends Component {
         const products = {
             title: this.state.title,
             body: this.state.body,
-        }
-        let uri = 'http://127.0.0.1:8000/products';
+        };
+        let uri = this._baseUrl + '/products';
         axios.post(uri, products).then((response) => {
             history.replace('/product')
         });

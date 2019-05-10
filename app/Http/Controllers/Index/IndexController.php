@@ -11,4 +11,9 @@ class IndexController extends Controller
     {
         return view('welcome');
     }
+
+    public function Lifecycle()
+    {
+        return view('lifecycle');
+    }
 }
